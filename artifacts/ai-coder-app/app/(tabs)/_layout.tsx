@@ -7,6 +7,7 @@ import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { Tabs } from 'expo-router';
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { SymbolView } from 'expo-symbols';
+import { useAppTheme } from '@/lib/theme';
 
 // IMPORTANT: iOS 26 uses NativeTabs for native tabs with liquid glass support.
 // NativeTabs intentionally does NOT use custom design tokens — liquid glass
@@ -33,6 +34,7 @@ function NativeTabLayout() {
 
 function ClassicTabLayout() {
   const colors = useColors();
+  const { theme } = useAppTheme();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const isIOS = Platform.OS === 'ios';
@@ -54,9 +56,9 @@ function ClassicTabLayout() {
         },
         tabBarBackground: () =>
           isIOS ? (
-            <BlurView
+              <BlurView
               intensity={100}
-              tint={isDark ? 'dark' : 'light'}
+                tint="dark"
               style={StyleSheet.absoluteFill}
             />
           ) : isWeb ? (

@@ -8,10 +8,12 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { importPublicGithubRepo } from '@/lib/githubImport';
 import { PROJECTS_KEY, ProjectMeta, saveProject, setPreviewUrl } from '@/lib/saveProject';
+import { useAppTheme } from '@/lib/theme';
 
 export default function ProjectsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { theme } = useAppTheme();
   const [projects, setProjects] = useState<ProjectMeta[]>([]);
   const [repoUrl, setRepoUrl] = useState('');
   const [importing, setImporting] = useState(false);
@@ -37,12 +39,12 @@ export default function ProjectsScreen() {
 
   return (
     <LinearGradient
-      colors={['#F0C080', '#D4894A', '#A8561E', '#2C1608']}
+      colors={theme.gradient}
       locations={[0, 0.3, 0.6, 1]}
       style={styles.root}
     >
-      <View style={styles.glowTop} />
-      <View style={styles.glowBottom} />
+      <View style={[styles.glowTop, { backgroundColor: theme.glow }]} />
+      <View style={[styles.glowBottom, { backgroundColor: theme.glowSecondary }]} />
 
       <ScrollView
         style={styles.scroll}
@@ -52,27 +54,27 @@ export default function ProjectsScreen() {
         {/* Header */}
         <View style={styles.header}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.kicker}>WORKSPACE</Text>
-            <Text style={styles.title}>Your projects</Text>
+            <Text style={[styles.kicker, { color: theme.accentBright }]}>WORKSPACE</Text>
+            <Text style={[styles.title, { color: theme.foreground }]}>Your projects</Text>
           </View>
           <Pressable onPress={() => router.push('/editor')} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}>
-            <LinearGradient colors={['#FF9A3C', '#EA580C']} style={styles.addBtn}>
-              <Feather name="plus" size={20} color="#fff" />
+            <LinearGradient colors={[theme.accentBright, theme.accent]} style={styles.addBtn}>
+              <Feather name="plus" size={20} color={theme.primaryForeground} />
             </LinearGradient>
           </Pressable>
         </View>
 
         {/* GitHub Import */}
-        <BlurView intensity={16} tint="dark" style={styles.card}>
-          <View style={styles.cardGlow} />
-          <View style={styles.cardInner}>
+        <BlurView intensity={16} tint="dark" style={[styles.card, { borderColor: theme.border }]}>
+          <View style={[styles.cardGlow, { backgroundColor: theme.glow }]} />
+          <View style={[styles.cardInner, { backgroundColor: theme.glassStrong }]}>
             <View style={styles.cardTitleRow}>
-              <LinearGradient colors={['#FF9A3C', '#EA580C']} style={styles.iconBadge}>
-                <Feather name="github" size={14} color="#fff" />
+              <LinearGradient colors={[theme.accentBright, theme.accent]} style={styles.iconBadge}>
+                <Feather name="github" size={14} color={theme.primaryForeground} />
               </LinearGradient>
-              <Text style={styles.cardTitle}>Import from GitHub</Text>
+              <Text style={[styles.cardTitle, { color: theme.foreground }]}>Import from GitHub</Text>
             </View>
-            <Text style={styles.cardSub}>Paste a public repository URL. Files are saved locally on this device.</Text>
+            <Text style={[styles.cardSub, { color: theme.mutedForeground }]}>Paste a public repository URL. Files are saved locally on this device.</Text>
             <View style={styles.importRow}>
               <TextInput
                 value={repoUrl}
@@ -80,32 +82,32 @@ export default function ProjectsScreen() {
                 autoCapitalize="none"
                 autoCorrect={false}
                 placeholder="https://github.com/owner/repo"
-                placeholderTextColor="rgba(255,255,255,0.3)"
-                style={styles.repoInput}
+                placeholderTextColor={theme.mutedForeground}
+                style={[styles.repoInput, { color: theme.foreground, backgroundColor: theme.accentSoft, borderColor: theme.border }]}
               />
               <Pressable onPress={importRepo} style={({ pressed }) => [{ opacity: pressed ? 0.75 : 1 }]}>
-                <LinearGradient colors={['#FF9A3C', '#EA580C']} style={styles.importBtn}>
-                  <Text style={styles.importBtnText}>{importing ? '…' : 'Import'}</Text>
+                <LinearGradient colors={[theme.accentBright, theme.accent]} style={styles.importBtn}>
+                  <Text style={[styles.importBtnText, { color: theme.primaryForeground }]}>{importing ? '…' : 'Import'}</Text>
                 </LinearGradient>
               </Pressable>
             </View>
             {!!message && (
-              <Text style={[styles.statusText, { color: importing ? 'rgba(255,255,255,0.4)' : '#F97316' }]}>{message}</Text>
+              <Text style={[styles.statusText, { color: importing ? theme.mutedForeground : theme.accentBright }]}>{message}</Text>
             )}
           </View>
         </BlurView>
 
         {/* New project shortcut */}
         <Pressable onPress={() => router.push('/')} style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }]}>
-          <BlurView intensity={14} tint="dark" style={[styles.card, styles.newCard]}>
-            <View style={styles.newGlow} />
-            <View style={[styles.cardInner, { flexDirection: 'row', alignItems: 'center', gap: 14 }]}>
-              <LinearGradient colors={['#FF9A3C', '#EA580C']} style={styles.iconBadgeLg}>
-                <Feather name="zap" size={18} color="#fff" />
+          <BlurView intensity={14} tint="dark" style={[styles.card, styles.newCard, { borderColor: theme.border }]}>
+            <View style={[styles.newGlow, { backgroundColor: theme.glow }]} />
+            <View style={[styles.cardInner, { backgroundColor: theme.glass, flexDirection: 'row', alignItems: 'center', gap: 14 }]}>
+              <LinearGradient colors={[theme.accentBright, theme.accent]} style={styles.iconBadgeLg}>
+                <Feather name="zap" size={18} color={theme.primaryForeground} />
               </LinearGradient>
               <View>
-                <Text style={styles.cardTitle}>Start a new project</Text>
-                <Text style={styles.cardSub}>Describe your idea and build it with AI</Text>
+                <Text style={[styles.cardTitle, { color: theme.foreground }]}>Start a new project</Text>
+                <Text style={[styles.cardSub, { color: theme.mutedForeground }]}>Describe your idea and build it with AI</Text>
               </View>
             </View>
           </BlurView>
@@ -114,25 +116,25 @@ export default function ProjectsScreen() {
         {/* Project list */}
         {projects.length > 0 && (
           <>
-            <Text style={styles.sectionLabel}>ALL PROJECTS</Text>
+            <Text style={[styles.sectionLabel, { color: theme.mutedForeground }]}>ALL PROJECTS</Text>
             {projects.map((project, i) => (
               <Pressable
                 key={project.name}
                 onPress={() => router.push({ pathname: '/editor', params: { project: project.name } })}
                 style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }]}
               >
-                <BlurView intensity={14} tint="dark" style={[styles.card, { marginBottom: 10 }]}>
-                  <View style={[styles.cardGlow, { backgroundColor: i % 2 ? 'rgba(155,167,255,0.15)' : 'rgba(249,115,22,0.18)' }]} />
-                  <View style={[styles.cardInner, { flexDirection: 'row', alignItems: 'center', gap: 12 }]}>
-                    <View style={[styles.folderIcon, { backgroundColor: i % 2 ? 'rgba(155,167,255,0.2)' : 'rgba(249,115,22,0.2)' }]}>
-                      <Feather name="folder" size={18} color={i % 2 ? '#9BA7FF' : '#F97316'} />
+                <BlurView intensity={14} tint="dark" style={[styles.card, { marginBottom: 10, borderColor: theme.border }]}>
+                  <View style={[styles.cardGlow, { backgroundColor: theme.glow }]} />
+                  <View style={[styles.cardInner, { backgroundColor: theme.glass, flexDirection: 'row', alignItems: 'center', gap: 12 }]}>
+                    <View style={[styles.folderIcon, { backgroundColor: theme.accentSoft }]}>
+                      <Feather name="folder" size={18} color={theme.accentBright} />
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.cardTitle}>{project.name}</Text>
-                      <Text style={styles.cardSub}>{project.fileCount} files · {new Date(project.created).toLocaleDateString()}</Text>
+                      <Text style={[styles.cardTitle, { color: theme.foreground }]}>{project.name}</Text>
+                      <Text style={[styles.cardSub, { color: theme.mutedForeground }]}>{project.fileCount} files · {new Date(project.created).toLocaleDateString()}</Text>
                     </View>
                     <Pressable onPress={() => router.push({ pathname: '/preview', params: { project: project.name } })}>
-                      <Feather name="monitor" size={17} color="#F97316" />
+                      <Feather name="monitor" size={17} color={theme.accentBright} />
                     </Pressable>
                   </View>
                 </BlurView>
@@ -142,7 +144,7 @@ export default function ProjectsScreen() {
         )}
 
         {!projects.length && (
-          <Text style={styles.emptyText}>No projects yet. Generate one or import a GitHub repo.</Text>
+          <Text style={[styles.emptyText, { color: theme.mutedForeground }]}>No projects yet. Generate one or import a GitHub repo.</Text>
         )}
       </ScrollView>
     </LinearGradient>
