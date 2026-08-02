@@ -48,54 +48,56 @@ export default function HomeScreen() {
 
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + 20, paddingBottom: 120 }]}
+        contentContainerStyle={[styles.content, styles.contentGrow, { paddingTop: insets.top + 20, paddingBottom: 120 }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <Image source={require('@/assets/images/icon.png')} style={styles.logo} />
-          <View style={styles.headerText}>
-            <Text style={styles.appName}>VELOCITY</Text>
-            <Text style={styles.tagline}>AI App Builder</Text>
-          </View>
-        </View>
-
-        {/* Prompt card — centered hero */}
-        <View style={styles.heroWrap}>
-          <View style={styles.glowCard} />
-          <BlurView intensity={18} tint="dark" style={styles.promptCard}>
-            <View style={styles.promptCardInner}>
-              <Text style={styles.promptLabel}>What will you build?</Text>
-              <TextInput
-                testID="prompt-input"
-                value={prompt}
-                onChangeText={setPrompt}
-                multiline
-                placeholder="Describe an app you want to make..."
-                placeholderTextColor="rgba(255,255,255,0.35)"
-                style={styles.promptInput}
-              />
-              {!!error && <Text style={styles.errorText}>{error}</Text>}
-              <View style={styles.promptFooter}>
-                <Text style={styles.hint}>~250 tokens · free on Groq</Text>
-                <Pressable
-                  testID="generate-button"
-                  onPress={submit}
-                  style={({ pressed }) => [styles.sendBtn, prompt.trim() && styles.sendBtnActive, { opacity: pressed ? 0.75 : 1 }]}
-                >
-                  {prompt.trim() ? (
-                    <LinearGradient colors={['#FF9A3C', '#F97316', '#EA580C']} style={styles.sendBtnGrad}>
-                      <Feather name={generating ? 'loader' : 'arrow-up'} size={18} color="#fff" />
-                    </LinearGradient>
-                  ) : (
-                    <View style={styles.sendBtnInactive}>
-                      <Feather name="arrow-up" size={18} color="rgba(255,255,255,0.4)" />
-                    </View>
-                  )}
-                </Pressable>
-              </View>
+        {/* Centered brand + prompt hero */}
+        <View style={styles.heroCenter}>
+          <View style={styles.header}>
+            <Image source={require('@/assets/images/icon.png')} style={styles.logo} />
+            <View style={styles.headerText}>
+              <Text style={styles.appName}>VELOCITY</Text>
+              <Text style={styles.tagline}>AI App Builder</Text>
             </View>
-          </BlurView>
+          </View>
+
+          {/* Prompt card — centered in the available screen */}
+          <View style={styles.heroWrap}>
+            <View style={styles.glowCard} />
+            <BlurView intensity={18} tint="dark" style={styles.promptCard}>
+              <View style={styles.promptCardInner}>
+                <Text style={styles.promptLabel}>What will you build?</Text>
+                <TextInput
+                  testID="prompt-input"
+                  value={prompt}
+                  onChangeText={setPrompt}
+                  multiline
+                  placeholder="Describe an app you want to make..."
+                  placeholderTextColor="rgba(255,255,255,0.35)"
+                  style={styles.promptInput}
+                />
+                {!!error && <Text style={styles.errorText}>{error}</Text>}
+                <View style={styles.promptFooter}>
+                  <Text style={styles.hint}>~250 tokens · free on Groq</Text>
+                  <Pressable
+                    testID="generate-button"
+                    onPress={submit}
+                    style={({ pressed }) => [styles.sendBtn, prompt.trim() && styles.sendBtnActive, { opacity: pressed ? 0.75 : 1 }]}
+                  >
+                    {prompt.trim() ? (
+                      <LinearGradient colors={['#FF9A3C', '#F97316', '#EA580C']} style={styles.sendBtnGrad}>
+                        <Feather name={generating ? 'loader' : 'arrow-up'} size={18} color="#fff" />
+                      </LinearGradient>
+                    ) : (
+                      <View style={styles.sendBtnInactive}>
+                        <Feather name="arrow-up" size={18} color="rgba(255,255,255,0.4)" />
+                      </View>
+                    )}
+                  </Pressable>
+                </View>
+              </View>
+            </BlurView>
+          </View>
         </View>
 
         {/* Recent projects */}
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
   root: { flex: 1 },
   scroll: { flex: 1 },
   content: { paddingHorizontal: 20 },
+  contentGrow: { flexGrow: 1 },
 
   // Glow blobs
   glowTopRight: {
@@ -171,13 +174,14 @@ const styles = StyleSheet.create({
   },
 
   // Header
-  header: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 32 },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 32 },
   logo: { width: 44, height: 44, tintColor: '#FFFFFF' },
-  headerText: {},
+  headerText: { alignItems: 'center' },
   appName: { fontSize: 18, fontWeight: '800', color: '#FFFFFF', letterSpacing: 3 },
   tagline: { fontSize: 12, color: 'rgba(255,255,255,0.6)', marginTop: 1 },
 
   // Hero prompt
+  heroCenter: { flex: 1, justifyContent: 'center', minHeight: 300 },
   heroWrap: { marginBottom: 28, position: 'relative' },
   glowCard: {
     position: 'absolute', top: 20, left: '10%',
