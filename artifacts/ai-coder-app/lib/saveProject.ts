@@ -12,7 +12,10 @@ import {
 
 export * from './projectUtils';
 
+import { detectPlatformRuntime } from './platformEnv';
+
 const isWeb = Platform.OS === 'web';
+const platformEnv = detectPlatformRuntime();
 const root = `${FileSystem.documentDirectory ?? ''}ai-coder/projects/`;
 
 const FILE_STORAGE_KEY_PREFIX = 'ai-coder-files-';
