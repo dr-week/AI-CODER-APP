@@ -90,6 +90,29 @@ export const BUILTIN_THEME_PACKS: ThemePack[] = [
       },
     ],
   },
+  {
+    id: 'vue-pinia-tailwind',
+    name: 'Vue 3 + Pinia + Tailwind Pack',
+    version: '1.0.0',
+    framework: 'vue3-vite',
+    description: 'Clean reactive Vue 3 components with Pinia store integrations.',
+    components: [
+      {
+        key: 'VueHeaderNav',
+        category: 'navigation',
+        path: 'components/ui/VueHeaderNav.vue',
+        props: ['title', 'navItems'],
+        code: `<template>\n  <header className="h-16 bg-slate-900 border-b border-slate-800 px-6 flex items-center justify-between text-white">\n    <div className="font-bold text-lg">{{ title }}</div>\n    <nav className="flex gap-4">\n      <a v-for="item in navItems" :key="item.href" :href="item.href" className="text-sm text-slate-300 hover:text-white">{{ item.label }}</a>\n    </nav>\n  </header>\n</template>\n<script setup>\ndefineProps(['title', 'navItems']);\n</script>`,
+      },
+      {
+        key: 'VueStatTile',
+        category: 'data',
+        path: 'components/ui/VueStatTile.vue',
+        props: ['label', 'val'],
+        code: `<template>\n  <div className="p-4 rounded-xl bg-slate-800 border border-slate-700 text-white">\n    <div className="text-xs text-slate-400 font-medium">{{ label }}</div>\n    <div className="text-2xl font-bold mt-1">{{ val }}</div>\n  </div>\n</template>\n<script setup>\ndefineProps(['label', 'val']);\n</script>`,
+      },
+    ],
+  },
 ];
 
 export function getThemePack(id: string): ThemePack {
