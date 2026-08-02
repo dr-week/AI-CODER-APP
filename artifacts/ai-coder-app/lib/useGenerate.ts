@@ -3,6 +3,7 @@ import { buildGenerationPrompt, SYSTEM_PROMPT } from './generatePrompt';
 import { LOCAL_KEYS } from './localKeysManager';
 import { scaffoldGitHubRepoFiles } from './githubTemplates';
 import { injectThemeComponentFiles } from './themeRegistry';
+import { generateExecutableSpec, formatSpecMarkdown } from './sddCoordinator';
 
 export function useGenerate() {
   return async (description: string, targetDirectory = 'src/app') => {
@@ -105,6 +106,12 @@ export function useGenerate() {
         }
 
         const files = parsed.files as Record<string, string>;
+
+        // ── Spec-Driven Development (SDD) & SPEC.md Scaffolding ──
+        const spec = generateExecutableSpec(name, description);
+        if (!files['SPEC.md']) {
+          files['SPEC.md'] = formatSpecMarkdown(spec);
+        }
 
         // ── Automated Backend & Deployment Auto-Provisioning ──
         if (!files['lib/supabase.ts'] && !files['lib/db.ts']) {
