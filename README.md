@@ -79,9 +79,33 @@ The Settings panel includes a real-time **Stats & Telemetry Dashboard**:
 - [x] **Self-Healing Loop:** Retries generation up to 3 times on compiler / stack trace errors.
 - [x] **Database Auto-Provisioning:** Auto-scaffolds Supabase connection clients & relational schemas.
 - [x] **One-Click Deploy & GitHub Sync:** Ships `vercel.json` and `.github/workflows/ci.yml`.
-- [ ] **Cloud E2B Sandbox Containers:** Cloud execution option for heavy node backend tasks.
-- [ ] **Multi-Agent Collaborative Teamwork Mode:** Autonomous agent teams for parallel refactoring.
-- [ ] **1-Click Custom Domain Publishing:** Instant Netlify/Vercel API domain binding.
+- [x] **Local Zero-Cost AI Execution:** Run refactoring loops through local Ollama (`qwen2.5-coder:7b` / `llama3.2`).
+- [x] **E2B Infrastructure Provisioning:** Bash automation script for cloud sandbox templates (`bash scripts/provision-e2b-sandbox.sh`).
+
+---
+
+## 📊 Technical Benchmarking & Cost Comparison
+
+Detailed performance and token cost benchmarks are published in [BENCHMARK.md](BENCHMARK.md):
+
+* **85% Token Savings:** Via Progressive Disclosure Skills Routing.
+* **70% Assembly Speedup:** Via Component Registries & Theme Packs.
+* **Zero-Cost Refactoring:** Via Local Ollama adapter (`lib/ollamaAdapter.ts`).
+
+---
+
+## 🦙 Local Ollama & E2B Setup
+
+To run Velocity with 100% free local models:
+
+1. **Start Ollama Local Server:**
+   ```bash
+   ollama run qwen2.5-coder:7b
+   ```
+2. **Provision E2B Cloud Sandbox (Optional for heavy native builds):**
+   ```bash
+   bash scripts/provision-e2b-sandbox.sh
+   ```
 
 ---
 
