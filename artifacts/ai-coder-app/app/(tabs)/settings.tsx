@@ -7,6 +7,7 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { THEMES, ThemeName } from '@/constants/themes';
 import { useAppTheme } from '@/lib/theme';
+import { BUILTIN_THEME_PACKS, ThemePack } from '@/lib/themeRegistry';
 
 const PROVIDERS = ['Groq', 'Gemini', 'OpenRouter', 'OpenAI', 'Anthropic', 'Ollama'];
 
@@ -17,21 +18,28 @@ export default function SettingsScreen() {
   const [key, setKey] = useState('');
   const [saved, setSaved] = useState(false);
   const [projectsCount, setProjectsCount] = useState(0);
+  const [activePackId, setActivePackId] = useState('glassmorphism-dark');
 
   useEffect(() => {
     Promise.all([
       AsyncStorage.getItem('ai-coder-key'),
       AsyncStorage.getItem('ai-coder-provider'),
       AsyncStorage.getItem('ai-coder-projects'),
-    ]).then(([v, p, proj]) => {
+      AsyncStorage.getItem('ai-coder-theme-pack'),
+    ]).then(([v, p, proj, tp]) => {
       if (v) setKey(v);
       if (p) setProvider(p);
       if (proj) setProjectsCount(JSON.parse(proj).length);
+      if (tp) setActivePackId(tp);
     });
   }, []);
 
   const save = async () => {
-    await AsyncStorage.multiSet([['ai-coder-key', key], ['ai-coder-provider', provider]]);
+    await AsyncStorage.multiSet([
+      ['ai-coder-key', key],
+      ['ai-coder-provider', provider],
+      ['ai-coder-theme-pack', activePackId],
+    ]);
     setSaved(true);
     setTimeout(() => setSaved(false), 1800);
   };

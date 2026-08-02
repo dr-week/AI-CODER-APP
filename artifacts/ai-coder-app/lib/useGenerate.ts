@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { buildGenerationPrompt, SYSTEM_PROMPT } from './generatePrompt';
 import { LOCAL_KEYS } from './localKeysManager';
 import { scaffoldGitHubRepoFiles } from './githubTemplates';
+import { injectThemeComponentFiles } from './themeRegistry';
 
 export function useGenerate() {
   return async (description: string, targetDirectory = 'src/app') => {
@@ -110,6 +111,10 @@ export function useGenerate() {
           files['lib/supabase.ts'] = `import { createClient } from '@supabase/supabase-js';\n\nconst supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-project.supabase.co';\nconst supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';\n\nexport const supabase = createClient(supabaseUrl, supabaseAnonKey);\n`;
           files['schema.sql'] = `-- Auto-provisioned Database Schema\nCREATE TABLE IF NOT EXISTS items (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  title TEXT NOT NULL,\n  created_at TIMESTAMPTZ DEFAULT NOW()\n);\n`;
         }
+
+        // ── Automated Theme Pack Components Auto-Injection ──
+        const activeThemePack = (await AsyncStorage.getItem('ai-coder-theme-pack')) || 'glassmorphism-dark';
+        injectThemeComponentFiles(files, activeThemePack);
 
         // ── Automated GitHub Repository Templates Scaffolding ──
         const ghFiles = scaffoldGitHubRepoFiles(name, description);
