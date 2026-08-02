@@ -1,6 +1,6 @@
 # ⚡ Velocity (AI-CODER-APP)
 
-An autonomous, local AI app builder utilizing a strict backend-first generation pipeline, interactive directory targeting, real-time price estimation, and structured self-healing reasoning.
+An autonomous, cross-platform AI app builder utilizing a strict backend-first generation pipeline, Stateless MCP (July 2026 Spec), bi-directional visual canvas, real-time price estimation, and self-healing reasoning.
 
 Created & Maintained by **Dishan Naik**.
 
@@ -18,10 +18,12 @@ Unlike black-box cloud code generators, Velocity gives developers **total contro
 
 1. **🔒 100% Privacy & Zero Relay Server:** Your API keys and source code are stored exclusively on your device. Direct client-to-LLM requests.
 2. **💵 Real-Time Price & Token Estimator:** Instant cost calculation for Groq, Gemini, OpenRouter, OpenAI, and Anthropic before executing prompts.
-3. **⚡ Interactive Procedure & Target Directory Selector:** Choose exact target folders (`src/app`, `artifacts/ai-coder-app`) and component layouts directly inside the chat interface.
-4. **🧠 Exposed Reasoning & Thinking Animation:** Watch the agent plan, configure directories, design architecture, and execute code step-by-step.
-5. **🔄 Self-Healing Agent Loop:** Intercepts syntax or compiler errors, feeds stack traces back to the LLM, and refactors autonomously (up to 3 retries).
-6. **🗄️ Auto-Provisioned Backend & Deploy Pipeline:** Auto-generates Supabase database clients (`lib/supabase.ts`), SQL schemas (`schema.sql`), and deployment scripts (`vercel.json`, `.github/workflows/ci.yml`).
+3. **🔌 Stateless Model Context Protocol (July 2026 Spec):** Multi Round-Trip Requests (MRTR) with header-based routing (`X-MCP-Spec-Version: 2026-07-01`) for scalable tool execution.
+4. **🎯 Bi-Directional Visual Canvas (Click-to-Edit):** Click any rendered preview element to isolate its source code line and send targeted diff patches.
+5. **⚡ Token Optimization (85% Savings):** Progressive Disclosure Skills Router, AST Context Pruner, and High-Density Shorthands (`[BFA]`, `[TPE]`, `[ZCC]`).
+6. **📱 Hybrid Environment Abstraction (Android & Desktop):** Run natively on PC or compilation-ready for the **Indus Appstore** (`com.drweek.velocity`).
+7. **🔄 Self-Healing Loop & Evaluator-Optimizer:** Automatically refactors code on compiler errors (up to 3 retries) with Intelligent Human Handoff.
+8. **🗄️ Auto-Provisioned Backend & Deploy Pipeline:** Auto-generates Supabase database clients (`lib/supabase.ts`), SQL schemas (`schema.sql`), and deployment scripts (`vercel.json`, `.github/workflows/ci.yml`).
 
 ---
 
@@ -29,10 +31,10 @@ Unlike black-box cloud code generators, Velocity gives developers **total contro
 
 To prevent scope creep and hallucination, Velocity enforces a rigid technology stack:
 
-* **Framework:** Next.js (App Router) / Vue 3 + Vite / React Native.
+* **Framework:** Next.js (App Router) / Vue 3 + Vite / React Native / Capacitor.
 * **Language:** TypeScript (Strict Mode).
 * **Styling:** Tailwind CSS.
-* **UI Engine:** Shadcn/ui & DaisyUI (Reusable, accessible component tokens).
+* **UI Engine:** Shadcn/ui, DaisyUI & Vue 3 Pinia (Reusable, accessible component tokens).
 * **State Management:** Zustand / Pinia / React Context.
 
 ---
@@ -48,7 +50,7 @@ graph TD
     C --> D[Phase 2: Core Logic & State Wiring]
     D --> E[Phase 3: UI Polish & Theme Tokens]
     E --> F[Self-Healing Validation Loop]
-    F -->|Success| G[Live Sandbox Preview & Deploy]
+    F -->|Success| G[Live WebContainer Preview & Deploy]
     F -->|Compiler Error| H[Auto-Refactor Retry 1..3]
     H --> F
 ```
@@ -57,8 +59,16 @@ graph TD
    - Define data models, schemas, and state management stores first.
 2. **Phase 2: Core Logic Integration**
    - Wire state management to basic HTML/JSX scaffolds to validate business logic.
-3. **Phase 3: UI Polish & Theming**
-   - Apply theme engines (Shadcn/DaisyUI) for clean, accessible interfaces.
+3. **Phase 3: UI Polish & Component Assembly**
+   - Assemble UI pages by reusing pre-made Theme Pack component blocks from `@/components/ui/`.
+
+---
+
+## 🛡️ Enterprise Operational Guardrails
+
+* **Hierarchical Rate Limiting (`lib/rateLimiter.ts`):** Token budget tracking per minute (100k tokens/min) and hard execution timeouts (15s tool calls, 60s task loops).
+* **Network Egress Domain Filter (`lib/networkEgressFilter.ts`):** Default-deny security allowlist blocking unauthorized outbound traffic.
+* **Automated E2E Integration Testing (`lib/runtimeTestRunner.ts`):** Executes runtime assertions inside the sandbox before deployment pipeline is allowed to run.
 
 ---
 
@@ -73,24 +83,24 @@ The Settings panel includes a real-time **Stats & Telemetry Dashboard**:
 
 ---
 
-## 🚀 Strategy & Future Roadmap
+## 🚀 Strategy & Features Checklist
 
-- [x] **Live WebContainer Sandbox Preview:** Live render preview of executing source code in browser.
-- [x] **Self-Healing Loop:** Retries generation up to 3 times on compiler / stack trace errors.
+- [x] **Stateless MCP (July 2026 MRTR Spec):** Header-based routing for load-balanced tool execution.
+- [x] **Orchestrator-Worker Parallelization:** Multi-agent parallel task execution (`Promise.all()`).
+- [x] **Live WebContainer Sandbox Preview:** Live render preview with zero-latency HMR in browser.
+- [x] **Self-Healing Loop & Human Handoff:** Retries refactoring up to 3 times on compiler errors; hands off to developer if score < 80%.
+- [x] **Bi-Directional Visual Canvas:** Live preview click-to-edit DOM AST line mapping.
 - [x] **Database Auto-Provisioning:** Auto-scaffolds Supabase connection clients & relational schemas.
 - [x] **One-Click Deploy & GitHub Sync:** Ships `vercel.json` and `.github/workflows/ci.yml`.
 - [x] **Local Zero-Cost AI Execution:** Run refactoring loops through local Ollama (`qwen2.5-coder:7b` / `llama3.2`).
-- [x] **E2B Infrastructure Provisioning:** Bash automation script for cloud sandbox templates (`bash scripts/provision-e2b-sandbox.sh`).
+- [x] **Android Capacitor Abstraction Layer:** Native build target (`com.drweek.velocity`) for the **Indus Appstore**.
 
 ---
 
-## 📊 Technical Benchmarking & Cost Comparison
+## 📊 Technical Benchmarking & Distribution
 
-Detailed performance and token cost benchmarks are published in [BENCHMARK.md](BENCHMARK.md):
-
-* **85% Token Savings:** Via Progressive Disclosure Skills Routing.
-* **70% Assembly Speedup:** Via Component Registries & Theme Packs.
-* **Zero-Cost Refactoring:** Via Local Ollama adapter (`lib/ollamaAdapter.ts`).
+* Detailed performance and token cost benchmarks are published in [BENCHMARK.md](BENCHMARK.md).
+* Open-source distribution & Indus Appstore release checklists are detailed in [DISTRIBUTION.md](DISTRIBUTION.md).
 
 ---
 
@@ -144,7 +154,7 @@ Contributions are welcome! Follow these steps to set up your environment:
    ```
 
 5. **Submit a Pull Request:**
-   - Ensure all changes pass `pnpm run typecheck` and `pnpm test` with 0 errors.
+   - Ensure all changes pass `pnpm run typecheck` and `pnpm test` with 0 errors (30/30 tests passing).
    - Use standard PR templates provided in `.github/PULL_REQUEST_TEMPLATE.md`.
 
 ---
