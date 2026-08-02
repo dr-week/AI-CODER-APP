@@ -1,6 +1,6 @@
-# AI Coder App
+# Velocity
 
-An Expo-based mobile AI coding workspace for generating, importing, and browsing small web projects directly on a device.
+Velocity is an Expo-based mobile AI coding workspace for generating, importing, and browsing small web projects directly on a device.
 
 ## What it does
 

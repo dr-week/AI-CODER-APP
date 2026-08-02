@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "AI Coder App",
-    "slug": "ai-coder-app",
+    "name": "Velocity",
+    "slug": "velocity",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ai-coder-app",
+    "scheme": "velocity",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {

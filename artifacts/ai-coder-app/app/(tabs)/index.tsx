@@ -38,7 +38,7 @@ export default function HomeScreen() {
     <ScrollView style={[styles.screen, { backgroundColor: colors.background }]} contentContainerStyle={{ paddingTop: insets.top + 18, paddingBottom: 110 }}>
       <View style={styles.header}>
         <View>
-          <Text style={[styles.eyebrow, { color: colors.primary }]}>AI CODER</Text>
+          <Text style={[styles.eyebrow, { color: colors.primary }]}>VELOCITY</Text>
           <Text style={[styles.title, { color: colors.foreground }]}>What will you build?</Text>
         </View>
         <View style={[styles.avatar, { backgroundColor: colors.accent }]}><Feather name="code" color={colors.primary} size={20} /></View>
