@@ -38,6 +38,7 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    import('@/lib/localKeysManager').then(m => m.initializeLocalKeys());
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
     }
@@ -49,7 +50,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
-          <GestureHandlerRootView>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
               <ThemeProvider>
                 <RootLayoutNav />

@@ -1,92 +1,138 @@
-# Velocity
+# ⚡ Velocity (AI-CODER-APP)
 
-Velocity is an Expo-based mobile AI coding workspace for generating, importing, and browsing small web projects directly on a device.
+An autonomous, local AI app builder utilizing a strict backend-first generation pipeline, interactive directory targeting, real-time price estimation, and structured self-healing reasoning.
 
-## What it does
+Created & Maintained by **Dishan Naik**.
 
-- Generate a project from a short description using your own AI provider
-- Use Groq's low-cost `llama-3.1-8b-instant` model by default
-- Use Ollama for a local, zero-cost provider
-- Save generated files locally under the app's document storage
-- Browse real saved files in the built-in code editor
-- Import public GitHub repositories by URL
-- Skip large binary files during repository imports
-- Preview deployed websites or local-network development servers in a WebView
-- Keep API keys, project metadata, and preview URLs on the device
+---
 
-## Project layout
+## 📸 Interface Preview
 
-```text
-artifacts/ai-coder-app/
-├── app/                 # Expo Router screens
-│   ├── (tabs)/          # Home, Projects, and Settings
-│   ├── editor.tsx       # Local file browser and code viewer
-│   └── preview.tsx      # Deployed/LAN website viewer
-├── lib/
-│   ├── githubImport.ts  # Public GitHub repository importer
-│   ├── generatePrompt.ts
-│   ├── saveProject.ts   # Local filesystem and metadata persistence
-│   └── useGenerate.ts   # Direct provider requests
-└── assets/images/       # App icon and splash artwork
+![Velocity Interface Preview](file:///C:/Users/lezand/.gemini/antigravity/brain/a01f7702-a7df-4bd7-91e0-a0df88c3778c/.user_uploaded/media__1785664908359.png)
+
+---
+
+## 🔥 What Makes Us Different?
+
+Unlike black-box cloud code generators, Velocity gives developers **total control, transparent telemetry, and zero vendor lock-in**:
+
+1. **🔒 100% Privacy & Zero Relay Server:** Your API keys and source code are stored exclusively on your device. Direct client-to-LLM requests.
+2. **💵 Real-Time Price & Token Estimator:** Instant cost calculation for Groq, Gemini, OpenRouter, OpenAI, and Anthropic before executing prompts.
+3. **⚡ Interactive Procedure & Target Directory Selector:** Choose exact target folders (`src/app`, `artifacts/ai-coder-app`) and component layouts directly inside the chat interface.
+4. **🧠 Exposed Reasoning & Thinking Animation:** Watch the agent plan, configure directories, design architecture, and execute code step-by-step.
+5. **🔄 Self-Healing Agent Loop:** Intercepts syntax or compiler errors, feeds stack traces back to the LLM, and refactors autonomously (up to 3 retries).
+6. **🗄️ Auto-Provisioned Backend & Deploy Pipeline:** Auto-generates Supabase database clients (`lib/supabase.ts`), SQL schemas (`schema.sql`), and deployment scripts (`vercel.json`, `.github/workflows/ci.yml`).
+
+---
+
+## 🏗️ Core Architecture (The Fixed Framework)
+
+To prevent scope creep and hallucination, Velocity enforces a rigid technology stack:
+
+* **Framework:** Next.js (App Router) / Vue 3 + Vite / React Native.
+* **Language:** TypeScript (Strict Mode).
+* **Styling:** Tailwind CSS.
+* **UI Engine:** Shadcn/ui & DaisyUI (Reusable, accessible component tokens).
+* **State Management:** Zustand / Pinia / React Context.
+
+---
+
+## ⚙️ 3-Phase Generation Pipeline
+
+The AI agent operates in strict, sequential phases:
+
+```mermaid
+graph TD
+    A[User Prompt] --> B[Procedure & Directory Selection]
+    B --> C[Phase 1: Data Architecture & Backend Schemas]
+    C --> D[Phase 2: Core Logic & State Wiring]
+    D --> E[Phase 3: UI Polish & Theme Tokens]
+    E --> F[Self-Healing Validation Loop]
+    F -->|Success| G[Live Sandbox Preview & Deploy]
+    F -->|Compiler Error| H[Auto-Refactor Retry 1..3]
+    H --> F
 ```
 
-## Run locally
+1. **Phase 1: Backend & Data Architecture (Backend-First)**
+   - Define data models, schemas, and state management stores first.
+2. **Phase 2: Core Logic Integration**
+   - Wire state management to basic HTML/JSX scaffolds to validate business logic.
+3. **Phase 3: UI Polish & Theming**
+   - Apply theme engines (Shadcn/DaisyUI) for clean, accessible interfaces.
 
-This repository is a pnpm workspace. From the repository root:
+---
 
-```bash
-pnpm install
-pnpm --filter @workspace/ai-coder-app run dev
-```
+## 📊 Telemetry & Observability
 
-Then scan the Expo QR code with Expo Go, or press `w` to open the web preview.
+The Settings panel includes a real-time **Stats & Telemetry Dashboard**:
 
-Type-check the mobile app with:
+* **Token Consumption**: Input/Output token counter against provider rate limits.
+* **Est. Session Cost**: Dollar cost calculator ($0.00 for Groq/Gemini/OpenRouter free tiers).
+* **Active Target Directory**: Current target build folder (`src/app` / `artifacts/`).
+* **Active Theme Engine**: Live color palette (Violet, Ember, Ocean).
 
-```bash
-pnpm --filter @workspace/ai-coder-app run typecheck
-```
+---
 
-## Configure an AI provider
+## 🚀 Strategy & Future Roadmap
 
-Open **Settings** in the app and choose a provider:
+- [x] **Live WebContainer Sandbox Preview:** Live render preview of executing source code in browser.
+- [x] **Self-Healing Loop:** Retries generation up to 3 times on compiler / stack trace errors.
+- [x] **Database Auto-Provisioning:** Auto-scaffolds Supabase connection clients & relational schemas.
+- [x] **One-Click Deploy & GitHub Sync:** Ships `vercel.json` and `.github/workflows/ci.yml`.
+- [ ] **Cloud E2B Sandbox Containers:** Cloud execution option for heavy node backend tasks.
+- [ ] **Multi-Agent Collaborative Teamwork Mode:** Autonomous agent teams for parallel refactoring.
+- [ ] **1-Click Custom Domain Publishing:** Instant Netlify/Vercel API domain binding.
 
-| Provider | Configuration |
-| --- | --- |
-| Groq | Paste a Groq API key. Uses `llama-3.1-8b-instant`. |
-| OpenAI | Paste an OpenAI API key. |
-| Anthropic | Provider option retained for compatibility. |
-| Ollama | Enter the reachable Ollama base URL, such as `http://192.168.1.20:11434`. |
+---
 
-Credentials are stored locally in the app. The app sends generation requests directly to the selected provider; there is no project relay server.
+## 💡 Best Practices
 
-## Import a GitHub project
+1. **Keep Prompts Actionable:** Specify what app features you want built (e.g. *"Build a habit tracker with Supabase data storage"*).
+2. **Use Free Tier Providers First:** Start with **Groq** or **Gemini** for instant, zero-cost generation.
+3. **Isolate Local Secrets:** Keep local API keys in `lib/localKeys.secrets.ts` (gitignored). Never commit keys to public branches.
 
-1. Open the **Projects** tab.
-2. Paste a public repository URL, for example:
+---
 
-   ```text
-   https://github.com/ntegrals/december
+## 🛠️ How to Contribute
+
+Contributions are welcome! Follow these steps to set up your environment:
+
+1. **Fork & Clone Repository:**
+   ```bash
+   git clone https://github.com/your-username/velocity.git
+   cd velocity
    ```
 
-3. Tap **Import**.
-4. Open the imported project to browse its source files.
+2. **Install Dependencies:**
+   ```bash
+   pnpm install
+   ```
 
-Imports are limited to readable source files up to 1 MB each and skip common binary assets. Nested directories are preserved in local storage.
+3. **Run Typecheck & Test Suite:**
+   ```bash
+   pnpm run typecheck
+   pnpm test
+   ```
 
-## Live previews
+4. **Start Development Server:**
+   ```bash
+   pnpm run dev
+   ```
 
-Open a project's monitor icon to use **Live Preview**. The viewer accepts:
+5. **Submit a Pull Request:**
+   - Ensure all changes pass `pnpm run typecheck` and `pnpm test` with 0 errors.
+   - Use standard PR templates provided in `.github/PULL_REQUEST_TEMPLATE.md`.
 
-- A deployed URL such as GitHub Pages, Vercel, or Netlify
-- A local development server reachable from the phone, such as `http://192.168.1.20:3000`
+---
 
-The phone and development computer must be on the same Wi-Fi network for LAN previews. Preview URLs are saved per project.
+## 👤 Author & Maintainer
 
-## Privacy
+**Dishan Naik**  
+*Lead Developer & AI Architect*  
+- GitHub: [@dishannaik](https://github.com/dishannaik)
 
-Generated projects, imported source files, provider settings, and preview URLs are kept locally on the device. Do not commit API keys or other credentials to this repository.
+---
 
-## License
+## 📄 License
 
-This project is a personal/open-source mobile workspace built with Expo and React Native.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

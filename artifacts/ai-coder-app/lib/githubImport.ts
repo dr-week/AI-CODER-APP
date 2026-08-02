@@ -1,9 +1,9 @@
-import { GeneratedProject } from './saveProject';
+import type { GeneratedProject } from './saveProject.ts';
 
 const MAX_FILE_BYTES = 1024 * 1024;
 const SKIP = /\.(png|jpe?g|gif|webp|ico|zip|pdf|mp4|mov|woff2?|ttf)$/i;
 
-function parseRepo(url: string) {
+export function parseRepo(url: string) {
   const match = url.trim().match(/github\.com\/([^/]+)\/([^/#?]+)/i);
   if (!match) throw new Error('Enter a GitHub URL like https://github.com/owner/repository.');
   return { owner: match[1], repo: match[2].replace(/\.git$/, '') };
